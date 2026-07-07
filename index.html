@@ -1,328 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to Word Converter | Dr. Umar Khokhar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            color: #333;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            margin-top: 30px;
-        }
-        
-        header {
-            background: #4e54c8;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .logo i {
-            color: #ff7b00;
-        }
-        
-        .content {
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .converter-title {
-            color: #2d2d2d;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-        
-        .upload-area {
-            border: 3px dashed #4e54c8;
-            border-radius: 12px;
-            padding: 40px 20px;
-            margin: 30px 0;
-            transition: all 0.3s;
-            background: #f8f9ff;
-            cursor: pointer;
-        }
-        
-        .upload-area:hover {
-            background: #eef0ff;
-            border-color: #6a11cb;
-        }
-        
-        .upload-area i {
-            font-size: 50px;
-            color: #4e54c8;
-            margin-bottom: 15px;
-        }
-        
-        .upload-area h3 {
-            color: #4e54c8;
-            margin-bottom: 15px;
-        }
-        
-        .upload-area p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        .btn {
-            background: #4e54c8;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 10px 0;
-            display: inline-block;
-            text-decoration: none;
-        }
-        
-        .btn:hover {
-            background: #6a11cb;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .feature {
-            flex: 1;
-            min-width: 200px;
-            padding: 20px;
-            background: #f5f7ff;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .feature i {
-            font-size: 30px;
-            color: #4e54c8;
-            margin-bottom: 15px;
-        }
-        
-        .stats {
-            background: #4e54c8;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: white;
-            margin-top: 30px;
-        }
-        
-        .creator {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-        
-        .file-input {
-            display: none;
-        }
-        
-        .file-name {
-            margin-top: 15px;
-            color: #4e54c8;
-            font-weight: 500;
-        }
-        
-        @media (max-width: 600px) {
-            .converter-title {
-                font-size: 26px;
-            }
-            
-            .upload-area {
-                padding: 20px 10px;
-            }
-            
-            .btn {
-                padding: 12px 30px;
-                font-size: 16px;
-            }
-        }
-    </style>
+<title>OSINT Research Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-file-word"></i>
-                <span>PDF to DOCX</span>
-            </div>
-            <h1>PDF to Word Converter</h1>
-        </header>
-        
-        <div class="content">
-            <h2 class="converter-title">Convert PDF to Editable Word Documents</h2>
-            
-            <div class="upload-area" id="dropArea">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3>CHOOSE FILES</h3>
-                <p>or drop files here</p>
-                <input type="file" id="fileInput" class="file-input" accept=".pdf">
-                <div class="file-name" id="fileName"></div>
-            </div>
-            
-            <button class="btn" id="convertBtn">Convert to Word</button>
-            
-            <div class="features">
-                <div class="feature">
-                    <i class="fas fa-edit"></i>
-                    <h3>Edit with Ease</h3>
-                    <p>Convert PDFs to editable Word documents</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-lock"></i>
-                    <h3>Secure Conversion</h3>
-                    <p>No sign-up required and no watermarks</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-globe"></i>
-                    <h3>Cross-Platform</h3>
-                    <p>Accessible on all devices</p>
-                </div>
-            </div>
-            
-            <div class="stats">
-                <h3>Join over 1.7 billion users</h3>
-                <p>Convert PDFs to Word documents quickly and easily</p>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <p>&copy; 2023 PDF to Word Converter</p>
-        <p class="creator">Created by Dr. Umar Khokhar</p>
-    </footer>
 
-    <script>
-        // Elements
-        const dropArea = document.getElementById('dropArea');
-        const fileInput = document.getElementById('fileInput');
-        const fileName = document.getElementById('fileName');
-        const convertBtn = document.getElementById('convertBtn');
-        
-        // Click on drop area to trigger file input
-        dropArea.addEventListener('click', () => {
-            fileInput.click();
-        });
-        
-        // Handle file selection
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                fileName.textContent = `Selected: ${file.name}`;
-            }
-        });
-        
-        // Drag and drop functionality
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-        });
-        
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false);
-        });
-        
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false);
-        });
-        
-        function highlight() {
-            dropArea.style.borderColor = '#6a11cb';
-            dropArea.style.backgroundColor = '#eef0ff';
-        }
-        
-        function unhighlight() {
-            dropArea.style.borderColor = '#4e54c8';
-            dropArea.style.backgroundColor = '#f8f9ff';
-        }
-        
-        dropArea.addEventListener('drop', handleDrop, false);
-        
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const file = dt.files[0];
-            fileInput.files = dt.files;
-            
-            if (file) {
-                fileName.textContent = `Selected: ${file.name}`;
-            }
-        }
-        
-        // Convert button functionality
-        convertBtn.addEventListener('click', () => {
-            if (!fileInput.files.length) {
-                alert('Please select a PDF file first.');
-                return;
-            }
-            
-            // Simulate conversion process
-            convertBtn.textContent = 'Converting...';
-            convertBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Conversion complete! In a real application, your Word file would now download.');
-                convertBtn.textContent = 'Convert to Word';
-                convertBtn.disabled = false;
-                fileName.textContent = '';
-                fileInput.value = '';
-            }, 3000);
-        });
-    </script>
+<body>
+
+<div class="container">
+
+<h1>🔎 OSINT Research Dashboard</h1>
+
+<p>
+Search publicly available information about a person.
+</p>
+
+<input 
+id="personName"
+placeholder="Enter person's name">
+
+<button onclick="searchPerson()">
+Start Recon
+</button>
+
+
+<div id="results"></div>
+
+</div>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
