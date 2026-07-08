@@ -1,35 +1,92 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>OSINT Research Dashboard</title>
+
+<title>Sentinel OSINT Recon Dashboard</title>
+
 <link rel="stylesheet" href="style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-<h1>🔎 OSINT Research Dashboard</h1>
+<div class="header">
 
-<p>
-Search publicly available information about a person.
-</p>
+<h1>🕵️ Sentinel OSINT Dashboard</h1>
 
-<input 
-id="personName"
-placeholder="Enter person's name">
-
-<button onclick="searchPerson()">
-Start Recon
-</button>
-
-
-<div id="results"></div>
+<p>Open Source Intelligence Research Platform</p>
 
 </div>
 
 
-<script src="script.js"></script>
+
+<div class="container">
+
+
+<div class="panel">
+
+<h2>Target Information</h2>
+
+
+<label>Name</label>
+
+<input id="name" placeholder="John Smith">
+
+
+<label>Username</label>
+
+<input id="username" placeholder="johnsmith">
+
+
+<label>Email</label>
+
+<input id="email" placeholder="john@email.com">
+
+
+<button onclick="runRecon()">
+Start Recon
+</button>
+
+
+</div>
+
+
+
+
+<div id="output" class="panel">
+
+
+<h2>Results</h2>
+
+<p>Waiting for target...</p>
+
+
+</div>
+
+
+
+<div class="panel">
+
+<h2>Relationship Map</h2>
+
+<div id="graph"></div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="app.js"></script>
 
 </body>
+
 </html>
